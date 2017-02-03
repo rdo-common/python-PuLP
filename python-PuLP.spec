@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.1
-Release:        4%{?dist}
+Release:        5%{?dist}
 Summary:        LP modeler written in Python
 
 License:        MIT
@@ -15,8 +15,6 @@ URL:            https://pypi.python.org/pypi/%{pypi_name}
 Source0:        https://files.pythonhosted.org/packages/source/%(n=%{pypi_name}; echo ${n:0:1})/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
 
 BuildArch:      noarch
-Requires:       coin-or-Cbc
-Conflicts:      python-pulp-common
 
 %global _description \
 PuLP is an LP modeler written in python. PuLP can generate MPS or LP files\
@@ -31,6 +29,9 @@ BuildRequires:  python2-devel
 BuildRequires:  python-setuptools
 BuildRequires:  python-pbr
 Requires:       pyparsing
+Requires:       coin-or-Cbc
+# pulpproject.org namespace conflict https://fedorahosted.org/fpc/ticket/671
+Conflicts:      python2-pulp-common
 
 %description -n python2-%{pypi_name} %{_description}
 
@@ -44,6 +45,10 @@ BuildRequires:  python3-devel
 BuildRequires:  python3-setuptools
 BuildRequires:  python3-pbr
 Requires:       python3-pyparsing
+Requires:       coin-or-Cbc
+# pulpproject.org namespace conflict https://fedorahosted.org/fpc/ticket/671
+# python3 version is currently not available
+#Conflicts:      python3-pulp-common
 
 %description -n python3-%{pypi_name} %{_description}
 
@@ -101,7 +106,7 @@ rm %{buildroot}%{_bindir}/pulpdoctest
 %endif
 
 %changelog
-* Fri Feb 03 2017 Alan Pevec <apevec AT redhat.com> - 1.6.1-4
+* Fri Feb 03 2017 Alan Pevec <apevec AT redhat.com> - 1.6.1-5
 - Fix EL7 build
 
 * Mon Dec 19 2016 Dan Radez <dradez@redhat.com> - 1.6.1-2
