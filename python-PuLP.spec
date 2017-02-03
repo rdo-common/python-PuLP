@@ -1,9 +1,13 @@
 %global pypi_name PuLP
 %global module_name pulp
 
+%if 0%{?fedora}
+%global with_python3 1
+%endif
+
 Name:           python-%{pypi_name}
 Version:        1.6.1
-Release:        2%{?dist}
+Release:        3%{?dist}
 Summary:        LP modeler written in Python
 
 License:        MIT
@@ -32,6 +36,7 @@ Requires:       python2-pyparsing
 
 #Python 2 version.
 
+%if 0%{?with_python3}
 %package -n python3-%{pypi_name}
 Summary:        %{summary}
 %{?python_provide:%python_provide python3-%{pypi_name}}
@@ -43,6 +48,7 @@ Requires:       python3-pyparsing
 %description -n python3-%{pypi_name} %{_description}
 
 #Python 3 version.
+%endif
 
 %prep
 %autosetup -n %{pypi_name}-%{version}
@@ -68,10 +74,15 @@ rm -f test-requirements.txt
 
 %build
 %py2_build
+%if 0%{?with_python3}
 %py3_build
+%endif
 
 %install
 %py2_install
+%if 0%{?with_python3}
+%py3_install
+%endif
 
 # remove the bin files, they're just for development
 rm %{buildroot}%{_bindir}/pulptest
@@ -82,12 +93,17 @@ rm %{buildroot}%{_bindir}/pulpdoctest
 %{python2_sitelib}/pulp/
 %{python2_sitelib}/%{pypi_name}-*.egg-info/
 
+%if 0%{?with_python3}
 %files -n python3-%{pypi_name}
 %license LICENSE
-#{python3_sitelib}/pulp/
-#%{python3_sitelib}/%{pypi_name}-*.egg-info/
+%{python3_sitelib}/pulp/
+%{python3_sitelib}/%{pypi_name}-*.egg-info/
+%endif
 
 %changelog
+* Fri Feb 03 2017 Alan Pevec <apevec AT redhat.com> - 1.6.1-3
+- Enable python3 build on Fedora
+
 * Mon Dec 19 2016 Dan Radez <dradez@redhat.com> - 1.6.1-2
 - Initial Packaging - Picking up package review from Marcos
 * Tue Sep 27 2016 Marcos Fermin Lobo <lobo@lukos.org> - 1.6.1-1
