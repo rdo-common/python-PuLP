@@ -7,7 +7,7 @@
 
 Name:           python-%{pypi_name}
 Version:        1.6.1
-Release:        3%{?dist}
+Release:        4%{?dist}
 Summary:        LP modeler written in Python
 
 License:        MIT
@@ -28,9 +28,9 @@ and call GLPK, COIN CLP/CBC, CPLEX, and GUROBI to solve linear problems.
 Summary:        %{summary}
 %{?python_provide:%python_provide python2-%{pypi_name}}
 BuildRequires:  python2-devel
-BuildRequires:  python2-setuptools
-BuildRequires:  python2-pbr
-Requires:       python2-pyparsing
+BuildRequires:  python-setuptools
+BuildRequires:  python-pbr
+Requires:       pyparsing
 
 %description -n python2-%{pypi_name} %{_description}
 
@@ -101,8 +101,8 @@ rm %{buildroot}%{_bindir}/pulpdoctest
 %endif
 
 %changelog
-* Fri Feb 03 2017 Alan Pevec <apevec AT redhat.com> - 1.6.1-3
-- Enable python3 build on Fedora
+* Fri Feb 03 2017 Alan Pevec <apevec AT redhat.com> - 1.6.1-4
+- Fix EL7 build
 
 * Mon Dec 19 2016 Dan Radez <dradez@redhat.com> - 1.6.1-2
 - Initial Packaging - Picking up package review from Marcos
