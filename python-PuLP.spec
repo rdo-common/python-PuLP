@@ -6,13 +6,13 @@
 %endif
 
 Name:           python-%{pypi_name}
-Version:        1.6.1
-Release:        5%{?dist}
+Version:        1.6.5
+Release:        1%{?dist}
 Summary:        LP modeler written in Python
 
 License:        MIT
 URL:            https://pypi.python.org/pypi/%{pypi_name}
-Source0:        https://files.pythonhosted.org/packages/source/%(n=%{pypi_name}; echo ${n:0:1})/%{pypi_name}/%{pypi_name}-%{version}.tar.gz
+Source0:        https://files.pythonhosted.org/packages/source/%(n=%{pypi_name}; echo ${n:0:1})/%{pypi_name}/%{pypi_name}-%{version}.zip
 
 BuildArch:      noarch
 
@@ -106,6 +106,9 @@ rm %{buildroot}%{_bindir}/pulpdoctest
 %endif
 
 %changelog
+* Fri Apr 07 2017 Alan Pevec <alan.pevec@redhat.com> 1.6.5-1
+- Update to 1.6.5
+
 * Fri Feb 03 2017 Alan Pevec <apevec AT redhat.com> - 1.6.1-5
 - Fix EL7 build
 
